@@ -1,4 +1,4 @@
-DiscFinder
+Discivo
 
 A web application that connects disc golf disc finders and owners.
 
