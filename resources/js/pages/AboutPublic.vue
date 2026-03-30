@@ -23,7 +23,7 @@ const t = useTranslations();
                         <span
                             class="text-xl font-bold text-gray-900 dark:text-white"
                         >
-                            DiscFinder
+                            Discivo
                         </span>
                     </div>
                     <nav class="flex items-center gap-6">

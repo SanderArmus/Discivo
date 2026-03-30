@@ -87,7 +87,7 @@ const mobileNavItems = [
                                 class="flex items-center gap-2"
                             >
                                 <AppLogoIcon class="h-8 w-8" />
-                                <span class="font-semibold">DiscFinder</span>
+                                <span class="font-semibold">Discivo</span>
                             </Link>
                         </SheetHeader>
                         <nav class="flex flex-col p-2">

@@ -12,7 +12,7 @@ const t = useTranslations();
 
 const NOMINATIM_HEADERS = {
     Accept: 'application/json',
-    'User-Agent': 'DiscFinder/1.0 (contact@discfinder.local)',
+    'User-Agent': 'Discivo/1.0 (contact@discivo.local)',
 };
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -408,7 +408,7 @@ async function searchLocationOnMap(): Promise<void> {
                     <p
                         class="mt-8 text-center text-xs font-medium uppercase tracking-widest text-muted-foreground"
                     >
-                        © 2023 DiscFinder • {{ t('Helping discs find their way home.') }}
+                        © 2023 Discivo • {{ t('Helping discs find their way home.') }}
                     </p>
                 </div>
             </main>

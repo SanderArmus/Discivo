@@ -7,7 +7,7 @@ const navItems = [
     { label: 'Profile', href: '/dashboard' },
     { label: 'Lost Discs', href: '/lost-discs' },
     { label: 'Found Discs', href: '/found-discs' },
-    { label: 'About DiscFinder', href: '/about' },
+    { label: 'About Discivo', href: '/about' },
 ];
 
 function isCurrent(href: string): boolean {

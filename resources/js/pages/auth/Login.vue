@@ -43,7 +43,7 @@ const showAbout = ref(false);
                         <span
                             class="text-xl font-bold text-gray-900 dark:text-white"
                         >
-                            DiscFinder
+                            Discivo
                         </span>
                     </div>
 

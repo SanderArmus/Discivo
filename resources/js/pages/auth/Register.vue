@@ -27,7 +27,7 @@ const showConfirmPassword = ref(false);
                     <div class="flex items-center gap-2">
                         <AppLogoIcon class="h-9 w-9 shrink-0" />
                         <span class="text-xl font-bold text-gray-900 dark:text-white">
-                            DiscFinder
+                            Discivo
                         </span>
                     </div>
 
