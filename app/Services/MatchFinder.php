@@ -92,6 +92,10 @@ final class MatchFinder
                         'status' => 'pending',
                     ]);
                 } else {
+                    if ($match->status === 'rejected') {
+                        continue;
+                    }
+
                     $match->match_score = $score;
                     if ($match->status === null) {
                         $match->status = 'pending';
@@ -215,6 +219,10 @@ final class MatchFinder
                         'status' => 'pending',
                     ]);
                 } else {
+                    if ($match->status === 'rejected') {
+                        continue;
+                    }
+
                     $match->match_score = $score;
                     if ($match->status === null) {
                         $match->status = 'pending';
@@ -288,6 +296,10 @@ final class MatchFinder
                         'status' => 'pending',
                     ]);
                 } else {
+                    if ($match->status === 'rejected') {
+                        continue;
+                    }
+
                     $match->match_score = $score;
                     if ($match->status === null) {
                         $match->status = 'pending';

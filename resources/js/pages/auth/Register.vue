@@ -54,6 +54,19 @@ const t = useTranslations();
                     class="space-y-5"
                 >
                     <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">{{ t('Username') }}</label>
+                        <input
+                            name="username"
+                            type="text"
+                            required
+                            :placeholder="t('Choose a username')"
+                            autocomplete="username"
+                            class="w-full px-4 py-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all text-gray-900 dark:text-white placeholder:text-gray-400"
+                        />
+                        <InputError :message="errors.username" />
+                    </div>
+
+                    <div>
                         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">{{ t('Full Name') }}</label>
                         <input
                             name="name"

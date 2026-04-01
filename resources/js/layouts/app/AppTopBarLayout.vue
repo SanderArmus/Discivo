@@ -52,20 +52,26 @@ const unreadMessageCount = computed(
 );
 const t = useTranslations();
 
-const mainNavItems = [
+const isAdmin = computed(() => auth.value?.user?.role === 'admin');
+
+const mainNavItems = computed(() => [
     { label: 'Profile', href: '/dashboard' },
+    ...(isAdmin.value ? [{ label: 'Admin', href: '/admin/discs' }] : []),
+    { label: 'Help', href: '/help' },
     { label: 'About DiscFinder', href: '/about' },
-];
+]);
 
 function isCurrentNav(href: string): boolean {
     const path = String(page.url).replace(/\?.*$/, '');
     return path === href || (href !== '/dashboard' && path.startsWith(href));
 }
 
-const mobileNavItems = [
+const mobileNavItems = computed(() => [
     { title: 'My Profile', href: '/dashboard', icon: LayoutGrid },
+    ...(isAdmin.value ? [{ title: 'Admin', href: '/admin/discs', icon: Settings }] : []),
+    { title: 'Help', href: '/help', icon: Info },
     { title: 'About DiscFinder', href: '/about', icon: Info },
-];
+]);
 </script>
 
 <template>

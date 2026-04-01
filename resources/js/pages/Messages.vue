@@ -18,6 +18,7 @@ type MatchThreadCard = {
     matchStatus: string;
     otherConfirmed: boolean;
     otherHandedOver: boolean;
+    unreadCount: number;
     lastMessagePreview: string;
     lastMessageAt: string;
 };
@@ -76,19 +77,23 @@ const breadcrumbs = computed<BreadcrumbItem[]>(() => [
                                 <span
                                     class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-bold"
                                     :class="
-                                        thread.matchStatus === 'handed_over'
-                                            ? 'bg-muted text-foreground/70 dark:bg-muted/50'
-                                            : thread.matchStatus === 'confirmed'
-                                              ? 'bg-primary/20 text-foreground dark:text-primary'
-                                              : 'bg-muted/50 text-muted-foreground'
+                                        thread.matchStatus === 'rejected'
+                                            ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
+                                            : thread.matchStatus === 'handed_over'
+                                              ? 'bg-primary/20 text-primary-foreground dark:text-primary-foreground'
+                                              : thread.matchStatus === 'confirmed'
+                                                ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300'
+                                                : 'bg-muted/50 text-muted-foreground'
                                     "
                                 >
                                     {{
-                                        thread.matchStatus === 'handed_over'
-                                            ? t('Handed over')
-                                            : thread.matchStatus === 'confirmed'
-                                              ? t('Confirmed')
-                                              : t('Pending')
+                                        thread.matchStatus === 'rejected'
+                                            ? t('Rejected')
+                                            : thread.matchStatus === 'handed_over'
+                                              ? t('Handed over')
+                                              : thread.matchStatus === 'confirmed'
+                                                ? t('Confirmed')
+                                                : t('Pending')
                                     }}
                                 </span>
                                 <span
@@ -111,9 +116,17 @@ const breadcrumbs = computed<BreadcrumbItem[]>(() => [
                                 {{ thread.lastMessagePreview }}
                             </p>
                         </div>
-                        <p class="text-[10px] font-bold uppercase tracking-tighter text-muted-foreground">
-                            {{ thread.lastMessageAt }}
-                        </p>
+                        <div class="flex shrink-0 flex-col items-end gap-2">
+                            <p class="text-[10px] font-bold uppercase tracking-tighter text-muted-foreground">
+                                {{ thread.lastMessageAt }}
+                            </p>
+                            <span
+                                v-if="thread.unreadCount > 0"
+                                class="flex h-5 min-w-5 items-center justify-center rounded-full bg-red-600 px-1 text-[10px] font-bold text-white"
+                            >
+                                {{ thread.unreadCount > 99 ? '99+' : thread.unreadCount }}
+                            </span>
+                        </div>
                     </div>
                 </Link>
             </div>

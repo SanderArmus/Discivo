@@ -54,7 +54,11 @@ class ShowMatchChatController extends Controller
         $otherUser = $isLostOwner ? $match->foundDisc->user : $match->lostDisc->user;
 
         $displayName = $displayDisc->model_name
-            ?: ($displayDisc->manufacturer ?: '—');
+            ? trim(implode(' ', array_filter([
+                $displayDisc->plastic_type,
+                $displayDisc->model_name,
+            ])))
+            : ($displayDisc->manufacturer ?: '—');
 
         $ownerConfirmed = $match->confirmation?->owner_confirmed ?? false;
         $finderConfirmed = $match->confirmation?->finder_confirmed ?? false;
@@ -68,24 +72,31 @@ class ShowMatchChatController extends Controller
 
         $matchStatus = $match->status ?: 'pending';
 
-        $displayDate = $displayDisc->occurred_at !== null
-            ? $displayDisc->occurred_at->format('M j, Y')
-            : '—';
+        $formatDiscSummary = function ($disc): array {
+            $name = $disc->model_name
+                ? trim(implode(' ', array_filter([
+                    $disc->plastic_type,
+                    $disc->model_name,
+                ])))
+                : ($disc->manufacturer ?: '—');
 
-        $displayLocation = '—';
-        if ($displayDisc->locations !== null) {
-            if ($displayDisc->locations instanceof \Illuminate\Support\Collection) {
-                $textLocation = $displayDisc->locations
+            $date = $disc->occurred_at !== null
+                ? $disc->occurred_at->format('M j, Y')
+                : '—';
+
+            $location = '—';
+            if ($disc->locations instanceof \Illuminate\Support\Collection) {
+                $textLocation = $disc->locations
                     ->first(fn ($l) => $l->location_text !== null && trim((string) $l->location_text) !== '');
 
                 if ($textLocation !== null && $textLocation->location_text !== null) {
-                    $displayLocation = trim((string) $textLocation->location_text);
+                    $location = trim((string) $textLocation->location_text);
                 } else {
-                    $coordsLocation = $displayDisc->locations
+                    $coordsLocation = $disc->locations
                         ->first(fn ($l) => $l->latitude !== null && $l->longitude !== null);
 
                     if ($coordsLocation !== null) {
-                        $displayLocation = sprintf(
+                        $location = sprintf(
                             '%0.4f, %0.4f',
                             (float) $coordsLocation->latitude,
                             (float) $coordsLocation->longitude
@@ -93,7 +104,24 @@ class ShowMatchChatController extends Controller
                     }
                 }
             }
-        }
+
+            $owner = $disc->user;
+            $ownerName = $owner?->username ?: ($owner?->name ?? '');
+
+            return [
+                'id' => $disc->id,
+                'name' => $name,
+                'ownerName' => $ownerName,
+                'date' => $date,
+                'location' => $location,
+            ];
+        };
+
+        $displayDate = $displayDisc->occurred_at !== null
+            ? $displayDisc->occurred_at->format('M j, Y')
+            : '—';
+
+        $displayLocation = $formatDiscSummary($displayDisc)['location'];
 
         return Inertia::render('MatchChat', [
             'match' => [
@@ -111,6 +139,8 @@ class ShowMatchChatController extends Controller
             'displayDiscDate' => $displayDate,
             'displayDiscLocation' => $displayLocation,
             'displayDiscId' => $displayDiscId,
+            'lostDisc' => $formatDiscSummary($match->lostDisc),
+            'foundDisc' => $formatDiscSummary($match->foundDisc),
             'ownConfirmed' => $ownConfirmed,
             'otherConfirmed' => $otherConfirmed,
             'ownHandedOver' => $ownHandedOver,

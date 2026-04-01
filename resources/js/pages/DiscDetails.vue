@@ -252,6 +252,9 @@ function submit(): void {
         },
         {
             preserveScroll: true,
+            onSuccess: () => {
+                editing.value = false;
+            },
             onError: () => undefined,
         },
     );
@@ -282,7 +285,16 @@ function deleteDisc(): void {
                             {{ props.disc.name }}
                         </h1>
                         <p class="mt-1 text-sm text-muted-foreground">
-                            {{ props.disc.status === 'lost' ? t('Lost') : t('Found') }} •
+                            <span
+                                class="mr-2 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-bold"
+                                :class="
+                                    props.disc.status === 'lost'
+                                        ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
+                                        : 'bg-primary/20 text-foreground dark:text-primary'
+                                "
+                            >
+                                {{ props.disc.status === 'lost' ? t('Lost') : t('Found') }}
+                            </span>
                             <span class="font-bold">{{ props.disc.brand }}</span>
                         </p>
                         <p class="mt-2 text-sm text-muted-foreground">

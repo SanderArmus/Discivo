@@ -1,10 +1,14 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminDiscsController;
 use App\Http\Controllers\ConfirmMatchController;
 use App\Http\Controllers\DeleteDiscController;
 use App\Http\Controllers\HandOverMatchController;
+use App\Http\Controllers\RejectMatchController;
 use App\Http\Controllers\ShowDiscController;
+use App\Http\Controllers\ShowHelpController;
 use App\Http\Controllers\ShowMatchChatController;
+use App\Http\Controllers\ShowMatchDetailsController;
 use App\Http\Controllers\StoreFoundDiscController;
 use App\Http\Controllers\StoreLostDiscController;
 use App\Http\Controllers\StoreMatchMessageController;
@@ -72,6 +76,15 @@ Route::get('messages', function () {
     ]);
 })->middleware(['auth', 'verified'])->name('messages.index');
 
+Route::get('help', ShowHelpController::class)
+    ->middleware(['auth', 'verified'])
+    ->name('help');
+
+Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('discs', [AdminDiscsController::class, 'index'])->name('admin.discs.index');
+    Route::patch('discs/{disc}', [AdminDiscsController::class, 'update'])->name('admin.discs.update');
+});
+
 Route::get('lost-discs', function () {
     return Inertia::render('LostDiscs');
 })->middleware(['auth', 'verified'])->name('lost-discs.index');
@@ -106,6 +119,10 @@ Route::get('matches/{match}', ShowMatchChatController::class)
     ->middleware(['auth', 'verified'])
     ->name('matches.chat');
 
+Route::get('matches/{match}/details', ShowMatchDetailsController::class)
+    ->middleware(['auth', 'verified'])
+    ->name('matches.details');
+
 Route::post('matches/{match}/messages', StoreMatchMessageController::class)
     ->middleware(['auth', 'verified'])
     ->name('matches.messages.store');
@@ -113,6 +130,10 @@ Route::post('matches/{match}/messages', StoreMatchMessageController::class)
 Route::post('matches/{match}/confirm', ConfirmMatchController::class)
     ->middleware(['auth', 'verified'])
     ->name('matches.confirm');
+
+Route::post('matches/{match}/reject', RejectMatchController::class)
+    ->middleware(['auth', 'verified'])
+    ->name('matches.reject');
 
 Route::post('matches/{match}/handover', HandOverMatchController::class)
     ->middleware(['auth', 'verified'])

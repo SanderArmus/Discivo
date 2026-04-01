@@ -85,6 +85,7 @@ test('match chat threads show correct other disc for both sides', function () {
     expect($lostThreads[0]['otherDiscLocation'])->toBe('Found Park');
     expect($lostThreads[0]['matchStatus'])->toBe('pending');
     expect($lostThreads[0]['otherConfirmed'])->toBeFalse();
+    expect($lostThreads[0]['unreadCount'])->toBe(0);
 
     $foundThreads = $finder->findThreadsForUser($foundOwner, limit: 10);
 
@@ -94,4 +95,5 @@ test('match chat threads show correct other disc for both sides', function () {
     expect($foundThreads[0]['otherDiscLocation'])->toBe('Lost Park');
     expect($foundThreads[0]['matchStatus'])->toBe('pending');
     expect($foundThreads[0]['otherConfirmed'])->toBeTrue();
+    expect($foundThreads[0]['unreadCount'])->toBeGreaterThanOrEqual(1);
 });

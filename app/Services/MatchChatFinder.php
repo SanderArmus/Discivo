@@ -3,7 +3,9 @@
 namespace App\Services;
 
 use App\Models\MatchThread;
+use App\Models\MatchThreadRead;
 use App\Models\User;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 
 final class MatchChatFinder
@@ -18,6 +20,7 @@ final class MatchChatFinder
      *     matchStatus: string,
      *     otherConfirmed: bool,
      *     otherHandedOver: bool,
+     *     unreadCount: int,
      *     lastMessagePreview: string,
      *     lastMessageAt: string
      * }>
@@ -79,6 +82,19 @@ final class MatchChatFinder
 
             $lastMessageAt = $lastMessage?->created_at?->format('M j, H:i') ?? '';
 
+            $unreadCount = 0;
+            if (Schema::hasTable('match_thread_reads')) {
+                $lastReadAt = MatchThreadRead::query()
+                    ->where('match_id', $thread->id)
+                    ->where('user_id', $userId)
+                    ->value('last_read_at');
+
+                $unreadCount = $thread->messages()
+                    ->where('receiver_id', $userId)
+                    ->when($lastReadAt !== null, fn ($q) => $q->where('created_at', '>', $lastReadAt))
+                    ->count();
+            }
+
             return [
                 'id' => $thread->id,
                 'discName' => $label,
@@ -88,6 +104,7 @@ final class MatchChatFinder
                 'matchStatus' => $matchStatus,
                 'otherConfirmed' => $otherConfirmed,
                 'otherHandedOver' => $otherHandedOver,
+                'unreadCount' => $unreadCount,
                 'lastMessagePreview' => $lastMessagePreview,
                 'lastMessageAt' => $lastMessageAt,
             ];

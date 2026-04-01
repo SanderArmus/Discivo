@@ -106,6 +106,7 @@ test('finds matches from other users when time order, color, and condition match
 
     expect($matches)->toBeArray()->toHaveCount(1);
     expect($matches[0]['confidence'])->toBeGreaterThanOrEqual(60);
+    expect($matches[0]['lostDiscId'])->toBe($lost->id);
     expect($matches[0]['foundDiscId'])->toBe($found->id);
 });
 

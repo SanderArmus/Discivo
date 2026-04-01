@@ -25,6 +25,8 @@ interface Match {
     confidence: number;
     location: string;
     date: string;
+    lostDiscId: number;
+    foundDiscId: number;
 }
 
 const props = defineProps<{
@@ -387,6 +389,27 @@ function statusLabel(disc: Disc): string {
                                     >
                                         {{ t('Leave a message') }}
                                     </Link>
+                                    <Link
+                                        :href="`/discs/${match.foundDiscId}`"
+                                        class="rounded border border-input bg-muted/50 px-3 py-2 text-xs font-bold text-foreground transition-colors hover:bg-muted"
+                                    >
+                                        {{ t('View disc') }}
+                                    </Link>
+                                    <Link
+                                        :href="`/matches/${match.id}/details`"
+                                        class="rounded border border-input bg-muted/50 px-3 py-2 text-xs font-bold text-foreground transition-colors hover:bg-muted"
+                                    >
+                                        {{ t('Compare') }}
+                                    </Link>
+                                    <button
+                                        type="button"
+                                        class="rounded bg-destructive px-3 py-2 text-xs font-bold text-white transition-opacity hover:opacity-90"
+                                        @click="
+                                            $inertia.post(`/matches/${match.id}/reject`, {}, { preserveScroll: true })
+                                        "
+                                    >
+                                        {{ t('Reject') }}
+                                    </button>
                                 </div>
                             </div>
                         </div>
