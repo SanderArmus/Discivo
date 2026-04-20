@@ -9,6 +9,14 @@ import { type BreadcrumbItem } from '@/types';
 
 const t = useTranslations();
 
+function colorListLabel(colors: string[]): string {
+    if (!colors.length) {
+        return '—';
+    }
+
+    return colors.map((c) => t(c)).join(', ');
+}
+
 type DiscCard = {
     id: number;
     ownerName: string;
@@ -127,7 +135,7 @@ function statusBadgeClass(status: 'lost' | 'found'): string {
                         <p><span class="font-bold text-foreground">{{ t('Disc Name') }}:</span> {{ props.lostDisc.modelName || '—' }}</p>
                         <p><span class="font-bold text-foreground">{{ t('Plastic Type') }}:</span> {{ props.lostDisc.plasticType || '—' }}</p>
                         <p><span class="font-bold text-foreground">{{ t('Condition') }}:</span> {{ props.lostDisc.condition || '—' }}</p>
-                        <p><span class="font-bold text-foreground">{{ t('Color') }}:</span> {{ props.lostDisc.colors.join(', ') || '—' }}</p>
+                        <p><span class="font-bold text-foreground">{{ t('Color') }}:</span> {{ colorListLabel(props.lostDisc.colors) }}</p>
                         <p><span class="font-bold text-foreground">{{ t('Name/Number written on disc') }}:</span> {{ props.lostDisc.inscription || '—' }}</p>
                     </div>
                 </div>
@@ -175,7 +183,7 @@ function statusBadgeClass(status: 'lost' | 'found'): string {
                         <p><span class="font-bold text-foreground">{{ t('Disc Name') }}:</span> {{ props.foundDisc.modelName || '—' }}</p>
                         <p><span class="font-bold text-foreground">{{ t('Plastic Type') }}:</span> {{ props.foundDisc.plasticType || '—' }}</p>
                         <p><span class="font-bold text-foreground">{{ t('Condition') }}:</span> {{ props.foundDisc.condition || '—' }}</p>
-                        <p><span class="font-bold text-foreground">{{ t('Color') }}:</span> {{ props.foundDisc.colors.join(', ') || '—' }}</p>
+                        <p><span class="font-bold text-foreground">{{ t('Color') }}:</span> {{ colorListLabel(props.foundDisc.colors) }}</p>
                         <p><span class="font-bold text-foreground">{{ t('Name/Number written on disc') }}:</span> {{ props.foundDisc.inscription || '—' }}</p>
                     </div>
                 </div>

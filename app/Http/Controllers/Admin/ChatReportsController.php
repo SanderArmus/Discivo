@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\ChatReport;
+use App\Models\Message;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -74,6 +75,71 @@ class ChatReportsController extends Controller
                     'email' => $r->reported?->email,
                 ],
             ]),
+        ]);
+    }
+
+    public function show(Request $request, ChatReport $report): Response
+    {
+        $authUser = $request->user();
+        if ($authUser === null || $authUser->role !== 'admin') {
+            abort(403);
+        }
+
+        $report->loadMissing(['reporter', 'reported']);
+
+        $messages = [];
+        if ($report->match_id !== null) {
+            $messages = Message::query()
+                ->where('match_id', $report->match_id)
+                ->where(function ($q) use ($report) {
+                    $q->where(function ($q2) use ($report) {
+                        $q2->where('sender_id', $report->reporter_id)
+                            ->where('receiver_id', $report->reported_id);
+                    })->orWhere(function ($q2) use ($report) {
+                        $q2->where('sender_id', $report->reported_id)
+                            ->where('receiver_id', $report->reporter_id);
+                    });
+                })
+                ->latest('id')
+                ->limit(50)
+                ->get()
+                ->reverse()
+                ->values()
+                ->map(fn (Message $m) => [
+                    'id' => $m->id,
+                    'senderId' => $m->sender_id,
+                    'receiverId' => $m->receiver_id,
+                    'createdAt' => $m->created_at?->format('Y-m-d H:i:s'),
+                    'content' => $m->content,
+                ])
+                ->all();
+        }
+
+        return Inertia::render('Admin/ChatReportShow', [
+            'report' => [
+                'id' => $report->id,
+                'context' => $report->match_id ? 'match' : 'support',
+                'matchId' => $report->match_id,
+                'reason' => $report->reason,
+                'details' => $report->details,
+                'lastMessagePreview' => $report->last_message_preview,
+                'lastMessageAt' => $report->last_message_at?->format('Y-m-d H:i:s'),
+                'createdAt' => $report->created_at?->format('Y-m-d H:i:s'),
+                'messagesSnapshot' => $report->messages_snapshot,
+                'messages' => $messages,
+                'reporter' => [
+                    'id' => $report->reporter?->id,
+                    'username' => $report->reporter?->username,
+                    'name' => $report->reporter?->name,
+                    'email' => $report->reporter?->email,
+                ],
+                'reported' => [
+                    'id' => $report->reported?->id,
+                    'username' => $report->reported?->username,
+                    'name' => $report->reported?->name,
+                    'email' => $report->reported?->email,
+                ],
+            ],
         ]);
     }
 }

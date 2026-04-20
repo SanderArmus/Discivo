@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use Symfony\Component\HttpFoundation\Response;
 
 class EnsureNotBanned
@@ -16,7 +17,11 @@ class EnsureNotBanned
         $user = $request->user();
 
         if ($user !== null && $user->banned_at !== null) {
-            abort(403);
+            $routeName = Route::currentRouteName();
+
+            if ($routeName !== 'banned') {
+                return redirect()->route('banned');
+            }
         }
 
         return $next($request);

@@ -41,6 +41,18 @@ Route::get('locale/{locale}', function (string $locale) {
     return redirect()->back();
 })->name('locale.switch');
 
+Route::get('banned', function (Request $request) {
+    $user = $request->user();
+    if ($user === null) {
+        abort(403);
+    }
+
+    return Inertia::render('Banned', [
+        'reason' => $user->banned_reason,
+        'bannedAt' => $user->banned_at?->format('Y-m-d H:i:s'),
+    ]);
+})->middleware(['auth'])->name('banned');
+
 Route::get('/', function () {
     if (auth()->check()) {
         return redirect()->route('dashboard');
@@ -63,7 +75,7 @@ Route::get('dashboard', function () {
             'id' => $disc->id,
             'name' => $disc->model_name ?: '—',
             'brand' => $disc->plastic_type ?: $disc->manufacturer ?: '—',
-            'color' => $disc->colors->pluck('name')->join(', ') ?: '—',
+            'color' => $disc->colors->pluck('name')->values()->all(),
             'status' => $disc->status,
             'matchLifecycle' => $disc->match_lifecycle,
             'active' => (bool) $disc->active,
@@ -165,6 +177,8 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
 
     Route::get('chat-reports', [\App\Http\Controllers\Admin\ChatReportsController::class, 'index'])
         ->name('admin.chat-reports.index');
+    Route::get('chat-reports/{report}', [\App\Http\Controllers\Admin\ChatReportsController::class, 'show'])
+        ->name('admin.chat-reports.show');
 });
 
 Route::get('lost-discs', function () {

@@ -9,11 +9,20 @@ import { type BreadcrumbItem } from '@/types';
 
 const t = useTranslations();
 
+function colorLabel(color: string | string[]): string {
+    if (Array.isArray(color)) {
+        if (!color.length) return '—';
+        return color.map((c) => t(c)).join(', ');
+    }
+
+    return t(color);
+}
+
 interface Disc {
     id: number;
     name: string;
     brand: string;
-    color: string;
+    color: string | string[];
     status: 'lost' | 'found';
     matchLifecycle?: string | null;
     active: boolean;
@@ -169,7 +178,7 @@ function statusLabel(disc: Disc): string {
                                         <td
                                             class="px-3 sm:px-6 py-5 text-sm text-muted-foreground wrap-break-word"
                                         >
-                                            {{ disc.color }}
+                                            {{ colorLabel(disc.color) }}
                                         </td>
                                         <td class="px-3 sm:px-6 py-5">
                                             <span
@@ -271,7 +280,7 @@ function statusLabel(disc: Disc): string {
                                                 {{ disc.brand }}
                                             </td>
                                             <td class="px-3 sm:px-6 py-5 text-sm text-muted-foreground wrap-break-word">
-                                                {{ disc.color }}
+                                                {{ colorLabel(disc.color) }}
                                             </td>
                                             <td class="px-3 sm:px-6 py-5">
                                                 <span
@@ -446,7 +455,7 @@ function statusLabel(disc: Disc): string {
                                                 {{ disc.brand }}
                                             </td>
                                             <td class="px-3 sm:px-6 py-5 text-sm text-muted-foreground wrap-break-word">
-                                                {{ disc.color }}
+                                                {{ colorLabel(disc.color) }}
                                             </td>
                                             <td class="px-3 sm:px-6 py-5">
                                                 <span

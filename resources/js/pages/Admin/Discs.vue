@@ -7,6 +7,14 @@ import { dashboard } from '@/routes';
 
 const t = useTranslations();
 
+function colorListLabel(colors: string[]): string {
+    if (!colors.length) {
+        return '—';
+    }
+
+    return colors.map((c) => t(c)).join(', ');
+}
+
 type DiscRow = {
     id: number;
     status: 'lost' | 'found';
@@ -477,7 +485,7 @@ function urlWithTab(
                                         {{ discLabel(disc) }}
                                     </div>
                                     <div class="mt-1 text-xs text-muted-foreground">
-                                        {{ disc.colors.join(', ') || '—' }}
+                                        {{ colorListLabel(disc.colors) }}
                                     </div>
                                 </td>
                                 <td class="px-4 py-3">
@@ -620,7 +628,7 @@ function urlWithTab(
                                         {{ discLabel(match.lostDisc) }}
                                     </div>
                                     <div class="mt-1 text-xs text-muted-foreground">
-                                        {{ match.lostDisc.colors.join(', ') || '—' }}
+                                        {{ colorListLabel(match.lostDisc.colors) }}
                                     </div>
                                     <div class="mt-1 text-xs font-bold text-foreground">
                                         {{ ownerLabel(match.lostDisc) }}
@@ -632,7 +640,7 @@ function urlWithTab(
                                         {{ discLabel(match.foundDisc) }}
                                     </div>
                                     <div class="mt-1 text-xs text-muted-foreground">
-                                        {{ match.foundDisc.colors.join(', ') || '—' }}
+                                        {{ colorListLabel(match.foundDisc.colors) }}
                                     </div>
                                     <div class="mt-1 text-xs font-bold text-foreground">
                                         {{ ownerLabel(match.foundDisc) }}

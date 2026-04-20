@@ -123,6 +123,10 @@ function openReport(r: ReportRow): void {
     selectedReport.value = r;
 }
 
+function openDetailsPage(r: ReportRow): void {
+    window.location.href = `/admin/chat-reports/${r.id}`;
+}
+
 function onDialogOpenChange(open: boolean): void {
     if (!open) {
         selectedReport.value = null;
@@ -437,6 +441,11 @@ function listPreview(text: string | null): string {
                     </div>
 
                     <div class="flex flex-wrap gap-2 pt-1">
+                        <Button as-child variant="outline">
+                            <Link :href="`/admin/chat-reports/${selectedReport.id}`">
+                                {{ t('Open report') }}
+                            </Link>
+                        </Button>
                         <Button v-if="selectedReport.context === 'match' && selectedReport.matchId" as-child variant="outline">
                             <Link :href="`/matches/${selectedReport.matchId}`">
                                 {{ t('Open match chat') }}

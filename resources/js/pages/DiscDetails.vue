@@ -10,6 +10,14 @@ import { type BreadcrumbItem } from '@/types';
 
 const t = useTranslations();
 
+function colorListLabel(colors: string[]): string {
+    if (!colors.length) {
+        return '—';
+    }
+
+    return colors.map((c) => t(c)).join(', ');
+}
+
 type PossibleMatch = {
     id: number;
     name: string;
@@ -536,7 +544,7 @@ function deleteDisc(): void {
                         <p><span class="font-bold text-foreground">{{ t('Plastic Type') }}:</span> {{ props.disc.plasticType || '—' }}</p>
                         <p><span class="font-bold text-foreground">{{ t('Condition') }}:</span> {{ props.disc.condition || '—' }}</p>
                         <p><span class="font-bold text-foreground">{{ t('Name/Number written on disc') }}:</span> {{ props.disc.inscription || '—' }}</p>
-                        <p><span class="font-bold text-foreground">{{ t('Color') }}:</span> {{ props.disc.colorNames.join(', ') || '—' }}</p>
+                        <p><span class="font-bold text-foreground">{{ t('Color') }}:</span> {{ colorListLabel(props.disc.colorNames) }}</p>
                     </div>
                 </div>
             </div>
