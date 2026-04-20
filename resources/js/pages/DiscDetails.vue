@@ -39,6 +39,7 @@ const props = defineProps<{
         inscription: string | null;
         occurredAt: string;
         active: boolean;
+        expiresAt?: string | null;
         matchLifecycle: string | null;
         colorNames: string[];
         locationText: string;
@@ -47,6 +48,7 @@ const props = defineProps<{
     possibleMatches: PossibleMatch[];
     canEdit: boolean;
     canDelete: boolean;
+    canRenew?: boolean;
 }>();
 
 const breadcrumbs = computed<BreadcrumbItem[]>(() => [
@@ -279,6 +281,12 @@ function deleteDisc(): void {
         preserveScroll: true,
     });
 }
+
+function renewDisc(): void {
+    if (!props.canRenew) return;
+
+    router.post(`/discs/${props.disc.id}/renew`, {}, { preserveScroll: true });
+}
 </script>
 
 <template>
@@ -286,6 +294,28 @@ function deleteDisc(): void {
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="mx-auto w-full max-w-3xl px-4 py-8">
+            <div
+                v-if="props.canRenew && !props.disc.active"
+                class="mb-6 rounded-xl border border-border bg-muted/20 p-4 shadow-sm"
+            >
+                <div class="flex flex-wrap items-start justify-between gap-3">
+                    <div>
+                        <p class="text-sm font-bold text-foreground">
+                            {{ t('This disc is inactive.') }}
+                        </p>
+                        <p class="mt-1 text-sm text-muted-foreground">
+                            {{ t('You can renew it for 90 days with one click.') }}
+                        </p>
+                    </div>
+                    <button
+                        type="button"
+                        class="h-10 rounded-lg bg-primary px-4 text-sm font-bold text-primary-foreground hover:opacity-90"
+                        @click="renewDisc"
+                    >
+                        {{ t('Renew for 90 days') }}
+                    </button>
+                </div>
+            </div>
             <div class="mb-6 rounded-xl border border-border bg-card p-5 shadow-sm">
                 <div class="flex items-start justify-between gap-4">
                     <div>

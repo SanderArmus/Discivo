@@ -68,6 +68,7 @@ class ShowDiscController extends Controller
 
         $canEdit = $isOwner && $disc->active === true;
         $canDelete = $canEdit;
+        $canRenew = $isOwner && $disc->active === false;
         $showPotentialMatches = $isOwner && $disc->active === true;
 
         $possibleMatches = $showPotentialMatches
@@ -87,6 +88,7 @@ class ShowDiscController extends Controller
                 'inscription' => $disc->back_text,
                 'occurredAt' => $disc->occurred_at?->format('Y-m-d\\TH:i') ?? '',
                 'active' => (bool) $disc->active,
+                'expiresAt' => $disc->expires_at?->format('Y-m-d H:i:s'),
                 'matchLifecycle' => $disc->match_lifecycle,
                 'colorNames' => $colorNames,
                 'locationText' => $locationText,
@@ -95,6 +97,7 @@ class ShowDiscController extends Controller
             'possibleMatches' => $possibleMatches,
             'canEdit' => $canEdit,
             'canDelete' => $canDelete,
+            'canRenew' => $canRenew,
         ]);
     }
 }

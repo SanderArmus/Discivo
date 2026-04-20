@@ -30,6 +30,7 @@ class StoreFoundDiscController extends Controller
             'back_text' => $request->input('inscription') ?: null,
             'condition_estimate' => $request->input('condition') ?: null,
             'active' => true,
+            'expires_at' => now()->addDays(90),
         ]);
 
         $locationText = $request->input('location');

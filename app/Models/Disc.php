@@ -19,6 +19,7 @@ class Disc extends Model
         'back_text',
         'condition_estimate',
         'active',
+        'expires_at',
         'match_lifecycle',
     ];
 
@@ -30,6 +31,7 @@ class Disc extends Model
         return [
             'occurred_at' => 'datetime',
             'active' => 'boolean',
+            'expires_at' => 'datetime',
         ];
     }
 

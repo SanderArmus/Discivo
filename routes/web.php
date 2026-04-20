@@ -11,6 +11,7 @@ use App\Http\Controllers\EndChatController;
 use App\Http\Controllers\EndSupportChatController;
 use App\Http\Controllers\HandOverMatchController;
 use App\Http\Controllers\RejectMatchController;
+use App\Http\Controllers\RenewDiscController;
 use App\Http\Controllers\ShowDiscController;
 use App\Http\Controllers\ShowHelpController;
 use App\Http\Controllers\ShowMatchChatController;
@@ -161,6 +162,10 @@ Route::get('help', ShowHelpController::class)
 Route::post('help/message-to-admin', StoreAdminMessageController::class)
     ->middleware(['auth', 'verified'])
     ->name('help.admin-message.store');
+
+Route::post('discs/{disc}/renew', RenewDiscController::class)
+    ->middleware(['auth', 'verified'])
+    ->name('discs.renew');
 
 Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::get('discs', [AdminDiscsController::class, 'index'])->name('admin.discs.index');
