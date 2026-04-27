@@ -198,7 +198,7 @@ const showAbout = ref(false);
                     </p>
                 </div>
 
-                <!-- Collapsible: About DiscFinder (inside card) -->
+                <!-- Collapsible: About (inside card) -->
                 <div class="mt-8 rounded-xl border border-gray-100 bg-gray-50/80 shadow-inner dark:border-gray-800 dark:bg-gray-800/40">
                     <button
                         type="button"
@@ -207,7 +207,7 @@ const showAbout = ref(false);
                         aria-controls="about-content"
                         @click="showAbout = !showAbout"
                     >
-                        <span>{{ t('About DiscFinder') }}</span>
+                        <span>{{ t('About Discivo') }}</span>
                         <ChevronDown
                             class="h-4 w-4 shrink-0 text-gray-500 transition-transform dark:text-gray-400"
                             :class="showAbout ? 'rotate-180' : ''"
@@ -219,10 +219,10 @@ const showAbout = ref(false);
                     >
                         <div class="border-t border-gray-200/80 px-4 pb-4 pt-3 text-sm leading-relaxed text-gray-600 shadow-inner dark:border-gray-700/80 dark:text-gray-400">
                             <p class="mb-3">
-                                {{ t("DiscFinder helps lost disc golf discs find their way back home. If you've ever lost your favorite driver in the woods or fished someone else's disc out of a pond, you already know the pain on both sides.") }}
+                                {{ t("Discivo helps lost disc golf discs find their way back home. If you've ever lost your favorite driver in the woods or fished someone else's disc out of a pond, you already know the pain on both sides.") }}
                             </p>
                             <p class="mb-3">
-                                {{ t("DiscFinder connects people who find discs with those who lost them — in one simple, searchable place. Report lost or found discs with location, brand, color, and more; we suggest matches so you can connect and arrange a handoff.") }}
+                                {{ t("Discivo connects people who find discs with those who lost them — in one simple, searchable place. Report lost or found discs with location, brand, color, and more; we suggest matches so you can connect and arrange a handoff.") }}
                             </p>
                             <p>
                                 <Link

@@ -136,6 +136,7 @@ function sendToAdmin(): void {
                             <li>{{ t('Help tip 1') }}</li>
                             <li>{{ t('Help tip 2') }}</li>
                             <li>{{ t('Help tip 3') }}</li>
+                            <li>{{ t('Help tip 4') }}</li>
                         </ul>
                     </section>
 

@@ -58,7 +58,7 @@ const mainNavItems = computed(() => [
     { label: 'Profile', href: '/dashboard' },
     ...(isAdmin.value ? [{ label: 'Admin', href: '/admin/discs' }] : []),
     { label: 'Help', href: '/help' },
-    { label: 'About DiscFinder', href: '/about' },
+    { label: 'About Discivo', href: '/about' },
 ]);
 
 function isCurrentNav(href: string): boolean {
@@ -70,7 +70,7 @@ const mobileNavItems = computed(() => [
     { title: 'My Profile', href: '/dashboard', icon: LayoutGrid },
     ...(isAdmin.value ? [{ title: 'Admin', href: '/admin/discs', icon: Settings }] : []),
     { title: 'Help', href: '/help', icon: Info },
-    { title: 'About DiscFinder', href: '/about', icon: Info },
+    { title: 'About Discivo', href: '/about', icon: Info },
 ]);
 </script>
 
@@ -132,7 +132,7 @@ const mobileNavItems = computed(() => [
                 </Sheet>
             </div>
 
-            <!-- Logo + DiscFinder -->
+            <!-- Logo -->
             <Link
                 :href="dashboard()"
                 class="flex shrink-0 items-center gap-2"

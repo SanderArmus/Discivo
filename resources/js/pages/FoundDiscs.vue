@@ -185,7 +185,7 @@ const locationSearching = ref(false);
 const locationSearchError = ref('');
 
 const inputClass =
-    'w-full rounded-lg border border-input bg-muted/50 px-3 py-2 text-foreground shadow-xs outline-none transition-colors placeholder:text-muted-foreground focus:border-ring focus-visible:ring-2 focus-visible:ring-ring/20 dark:bg-muted/30';
+    'w-full rounded-lg border border-input bg-muted/50 px-3 py-2 text-foreground shadow-xs outline-none transition-colors placeholder:text-muted-foreground focus:border-ring focus-visible:ring-2 focus-visible:ring-ring/20 dark:bg-muted/30 dark:[color-scheme:dark]';
 const selectClass =
     'w-full rounded-lg border border-input bg-muted/50 px-3 py-2 text-foreground shadow-xs outline-none transition-colors focus:border-ring focus-visible:ring-2 focus-visible:ring-ring/20 dark:bg-muted/30';
 

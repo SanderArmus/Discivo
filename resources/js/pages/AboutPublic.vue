@@ -9,7 +9,7 @@ const t = useTranslations();
 </script>
 
 <template>
-    <Head :title="t('About DiscFinder')" />
+    <Head :title="t('About Discivo')" />
     <div
         class="flex min-h-screen flex-col bg-gray-50 dark:bg-[#0a0a0a]"
     >
@@ -45,12 +45,12 @@ const t = useTranslations();
                     <h1
                         class="text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-5xl"
                     >
-                        {{ t('About DiscFinder') }}
+                        {{ t('About Discivo') }}
                     </h1>
                     <p
                         class="mt-4 text-lg leading-relaxed text-gray-600 dark:text-gray-400"
                     >
-                        {{ t('DiscFinder helps lost discgolf discs find their way back home.') }}
+                        {{ t('Discivo helps lost discgolf discs find their way back home.') }}
                     </p>
                 </header>
 
@@ -59,7 +59,7 @@ const t = useTranslations();
                         <p
                             class="text-base leading-7 text-gray-700 dark:text-gray-300 sm:text-lg"
                         >
-                            {{ t("If you've ever lost your favorite driver in the woods or fished someone else's disc out of a pond, you already know the pain on both sides. DiscFinder connects the people who find discs with the people who lost them — in one simple, searchable place.") }}
+                            {{ t("If you've ever lost your favorite driver in the woods or fished someone else's disc out of a pond, you already know the pain on both sides. Discivo connects the people who find discs with the people who lost them — in one simple, searchable place.") }}
                         </p>
                     </section>
 
@@ -74,7 +74,7 @@ const t = useTranslations();
                         <p
                             class="text-base leading-7 text-gray-600 dark:text-gray-400"
                         >
-                            {{ t('Today, most found discs end up in Facebook groups. Posts get buried fast, large "found disc" dumps are hard to search, and weeks can pass before the owner even sees them. DiscFinder fixes that.') }}
+                            {{ t('Today, most found discs end up in Facebook groups. Posts get buried fast, large "found disc" dumps are hard to search, and weeks can pass before the owner even sees them. Discivo fixes that.') }}
                         </p>
                     </section>
 
@@ -87,7 +87,7 @@ const t = useTranslations();
                         <p
                             class="text-base leading-7 text-gray-700 dark:text-gray-300 sm:text-lg"
                         >
-                            {{ t('With DiscFinder, players can report lost and found discs with detailed information like location, time, brand, color, and any writing on the disc. Our system automatically compares reports and suggests potential matches. When both sides confirm it\'s the right disc, you can connect, arrange a handoff, and close the case.') }}
+                            {{ t('With Discivo, players can report lost and found discs with detailed information like location, time, brand, color, and any writing on the disc. Our system automatically compares reports and suggests potential matches. When both sides confirm it\'s the right disc, you can connect, arrange a handoff, and close the case.') }}
                         </p>
                     </section>
 
@@ -103,7 +103,7 @@ const t = useTranslations();
                         :href="home()"
                         class="inline-flex items-center rounded-xl bg-primary px-6 py-3 font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
                     >
-                        {{ t('Log in to DiscFinder') }}
+                        {{ t('Log in to Discivo') }}
                     </Link>
                 </p>
             </div>

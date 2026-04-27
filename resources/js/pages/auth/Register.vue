@@ -43,7 +43,7 @@ const t = useTranslations();
                         {{ t('Create an Account') }}
                     </h2>
                     <p class="text-gray-500 dark:text-gray-400 text-sm">
-                        {{ t('Enter your details to join the DiscFinder community.') }}
+                        {{ t('Enter your details to join the Discivo community.') }}
                     </p>
                 </div>
 

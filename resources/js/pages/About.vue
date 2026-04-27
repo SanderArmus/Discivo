@@ -7,12 +7,12 @@ import { type BreadcrumbItem } from '@/types';
 const t = useTranslations();
 
 const breadcrumbs: BreadcrumbItem[] = [
-    { title: t('About DiscFinder'), href: '/about' },
+    { title: t('About Discivo'), href: '/about' },
 ];
 </script>
 
 <template>
-    <Head :title="t('About DiscFinder')" />
+    <Head :title="t('About Discivo')" />
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="flex flex-1 flex-col">
             <main class="flex-1 px-4 py-10 sm:px-6 lg:px-8">
@@ -22,12 +22,12 @@ const breadcrumbs: BreadcrumbItem[] = [
                         <h1
                             class="text-4xl font-extrabold tracking-tight text-foreground sm:text-5xl"
                         >
-                            {{ t('About DiscFinder') }}
+                            {{ t('About Discivo') }}
                         </h1>
                         <p
                             class="mt-4 text-lg leading-relaxed text-muted-foreground"
                         >
-                            {{ t('DiscFinder helps lost discgolf discs find their way back home.') }}
+                            {{ t('Discivo helps lost discgolf discs find their way back home.') }}
                         </p>
                     </header>
 
@@ -37,7 +37,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                             <p
                                 class="text-base leading-7 text-foreground sm:text-lg"
                             >
-                                {{ t("If you've ever lost your favorite driver in the woods or fished someone else's disc out of a pond, you already know the pain on both sides. DiscFinder connects the people who find discs with the people who lost them — in one simple, searchable place.") }}
+                                {{ t("If you've ever lost your favorite driver in the woods or fished someone else's disc out of a pond, you already know the pain on both sides. Discivo connects the people who find discs with the people who lost them — in one simple, searchable place.") }}
                             </p>
                         </section>
 
@@ -52,7 +52,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                             <p
                                 class="text-base leading-7 text-muted-foreground"
                             >
-                                {{ t('Today, most found discs end up in Facebook groups. Posts get buried fast, large "found disc" dumps are hard to search, and weeks can pass before the owner even sees them. DiscFinder fixes that.') }}
+                                {{ t('Today, most found discs end up in Facebook groups. Posts get buried fast, large "found disc" dumps are hard to search, and weeks can pass before the owner even sees them. Discivo fixes that.') }}
                             </p>
                         </section>
 
@@ -65,7 +65,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                             <p
                                 class="text-base leading-7 text-foreground sm:text-lg"
                             >
-                                {{ t('With DiscFinder, players can report lost and found discs with detailed information like location, time, brand, color, and any writing on the disc. Our system automatically compares reports and suggests potential matches. When both sides confirm it\'s the right disc, you can connect, arrange a handoff, and close the case.') }}
+                                {{ t('With Discivo, players can report lost and found discs with detailed information like location, time, brand, color, and any writing on the disc. Our system automatically compares reports and suggests potential matches. When both sides confirm it\'s the right disc, you can connect, arrange a handoff, and close the case.') }}
                             </p>
                         </section>
 

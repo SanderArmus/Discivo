@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\EnsureCanonicalHost;
 use App\Http\Middleware\EnsureNotBanned;
 use App\Http\Middleware\HandleAppearance;
 use App\Http\Middleware\HandleInertiaRequests;
@@ -20,6 +21,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->redirectGuestsTo('/');
 
         $middleware->web(append: [
+            EnsureCanonicalHost::class,
             SetLocale::class,
             EnsureNotBanned::class,
             HandleAppearance::class,
