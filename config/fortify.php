@@ -134,6 +134,8 @@ return [
 
     'redirects' => [
         'password-reset' => '/',
+        // After password registration, send users to the verification prompt (MustVerifyEmail).
+        'register' => '/email/verify',
     ],
 
     /*
