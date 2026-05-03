@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { Form, Head, Link } from '@inertiajs/vue3';
+import { Form, Head, Link, usePage } from '@inertiajs/vue3';
 import { ChevronDown, Eye, EyeOff } from 'lucide-vue-next';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import AppLogoIcon from '@/components/AppLogoIcon.vue';
 import InputError from '@/components/InputError.vue';
 import LanguageSwitcher from '@/components/LanguageSwitcher.vue';
@@ -10,11 +10,22 @@ import { register } from '@/routes';
 import { store } from '@/routes/login';
 import { request } from '@/routes/password';
 
-defineProps<{
+const props = defineProps<{
     status?: string;
-    canResetPassword: boolean;
-    canRegister: boolean;
+    canResetPassword?: boolean;
+    canRegister?: boolean;
 }>();
+
+const page = usePage();
+
+/** Fallback to shared Inertia props when a route renders Login without explicit Fortify flags. */
+const showPasswordReset = computed(() =>
+    Boolean(props.canResetPassword ?? page.props.canResetPassword),
+);
+
+const showRegister = computed(() =>
+    Boolean(props.canRegister ?? page.props.canRegister),
+);
 
 const t = useTranslations();
 const showPassword = ref(false);
@@ -103,20 +114,11 @@ const showAbout = ref(false);
 
                     <!-- Password -->
                     <div>
-                        <div class="mb-1.5 flex items-center justify-between">
-                            <label
-                                class="block text-sm font-medium text-gray-700 dark:text-gray-300"
-                            >
-                                {{ t('Password') }}
-                            </label>
-                            <Link
-                                v-if="canResetPassword"
-                                :href="request()"
-                                class="text-xs font-medium text-primary hover:underline"
-                            >
-                                {{ t('Forgot password?') }}
-                            </Link>
-                        </div>
+                        <label
+                            class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-300"
+                        >
+                            {{ t('Password') }}
+                        </label>
 
                         <div class="relative">
                             <input
@@ -139,6 +141,19 @@ const showAbout = ref(false);
                                 />
                             </button>
                         </div>
+
+                        <div
+                            v-if="showPasswordReset"
+                            class="mt-2 text-right"
+                        >
+                            <Link
+                                :href="request()"
+                                class="text-sm font-medium text-primary hover:underline"
+                            >
+                                {{ t('Forgot password?') }}
+                            </Link>
+                        </div>
+
                         <InputError :message="errors.password" />
                     </div>
 
@@ -189,7 +204,7 @@ const showAbout = ref(false);
                     <p class="text-sm text-gray-500 dark:text-gray-400">
                         {{ t("Don't have an account?") }}
                         <Link
-                            v-if="canRegister"
+                            v-if="showRegister"
                             :href="register()"
                             class="font-bold text-primary hover:underline"
                         >

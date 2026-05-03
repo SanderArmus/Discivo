@@ -21,6 +21,8 @@ declare module '@inertiajs/core' {
             locale: string;
             translations: Record<string, string>;
             sidebarOpen: boolean;
+            canResetPassword: boolean;
+            canRegister: boolean;
             [key: string]: unknown;
         };
     }

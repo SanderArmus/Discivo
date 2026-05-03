@@ -10,6 +10,15 @@ test('reset password link screen can be rendered', function () {
     $response->assertOk();
 });
 
+test('home login screen exposes password reset feature', function () {
+    $response = $this->get(route('home'));
+
+    $response->assertOk();
+    $response->assertInertia(fn ($page) => $page
+        ->component('auth/Login')
+        ->where('canResetPassword', true));
+});
+
 test('reset password link can be requested', function () {
     Notification::fake();
 
