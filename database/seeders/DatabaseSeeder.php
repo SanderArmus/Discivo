@@ -43,5 +43,7 @@ class DatabaseSeeder extends Seeder
             ->where('email', $email)
             ->where('role', '!=', 'admin')
             ->update(['role' => 'admin']);
+
+        $this->call(LocalDemoSeeder::class);
     }
 }
