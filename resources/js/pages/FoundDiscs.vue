@@ -527,7 +527,7 @@ async function searchLocationOnMap(): Promise<void> {
                     <p
                         class="mt-8 text-center text-xs font-medium uppercase tracking-widest text-muted-foreground"
                     >
-                        © 2023 Discivo • {{ t('Helping discs find their way home.') }}
+                        © 2026 Discivo • {{ t('Helping discs find their way home.') }}
                     </p>
                 </div>
             </main>
