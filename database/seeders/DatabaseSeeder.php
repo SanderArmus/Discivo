@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,11 +14,28 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        if (! app()->environment('local')) {
+            return;
+        }
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        $email = 'test@test.ee';
+        $password = 'TestKasutaja123';
+
+        User::query()->firstOrCreate(
+            ['email' => $email],
+            [
+                'username' => 'test',
+                'name' => 'Test Kasutaja',
+                'password' => $password,
+                'email_verified_at' => now(),
+                'role' => null,
+            ]
+        );
+
+        // Ensure username is present even if an existing row matched by email.
+        User::query()
+            ->where('email', $email)
+            ->whereNull('username')
+            ->update(['username' => 'test'.Str::random(4)]);
     }
 }
