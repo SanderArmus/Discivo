@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
                 'name' => 'Test Kasutaja',
                 'password' => $password,
                 'email_verified_at' => now(),
-                'role' => null,
+                'role' => 'admin',
             ]
         );
 
@@ -37,5 +37,11 @@ class DatabaseSeeder extends Seeder
             ->where('email', $email)
             ->whereNull('username')
             ->update(['username' => 'test'.Str::random(4)]);
+
+        // Ensure the seeded test user is an admin even if it already existed.
+        User::query()
+            ->where('email', $email)
+            ->where('role', '!=', 'admin')
+            ->update(['role' => 'admin']);
     }
 }
