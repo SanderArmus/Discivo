@@ -56,7 +56,7 @@ final class MatchScorer
             (float) $foundLocation->longitude
         );
 
-        $timeScore = $this->scoreTimeGapDays((float) $found->occurred_at->diffInSeconds($lost->occurred_at) / 86400);
+        $timeScore = $this->scoreTimeGapDays((float) $lost->occurred_at->diffInSeconds($found->occurred_at) / 86400);
         $distanceScore = $this->scoreDistanceKm($distanceKm);
         $colorScore = $this->scoreColorOverlap($lostColorIds, $foundColorIds, $overlap);
         $conditionScore = $lost->condition_estimate === $found->condition_estimate ? 100.0 : 50.0;
@@ -117,19 +117,20 @@ final class MatchScorer
 
     private function scoreTimeGapDays(float $gapDays): float
     {
-        if ($gapDays <= 0.5) {
-            return 100.0; // ~12 hours
+        // Time is a useful signal but should not over-penalize common recovery delays.
+        if ($gapDays <= 7) {
+            return 100.0;
         }
 
-        if ($gapDays <= 2) {
+        if ($gapDays <= 14) {
             return 80.0;
         }
 
-        if ($gapDays <= 7) {
+        if ($gapDays <= 30) {
             return 60.0;
         }
 
-        if ($gapDays <= 30) {
+        if ($gapDays <= 90) {
             return 25.0;
         }
 
